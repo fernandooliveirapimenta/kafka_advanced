@@ -1,4 +1,4 @@
-package com.example.magpi;
+package com.example.kafka_java;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
