@@ -1,5 +1,6 @@
 package com.example.kafka_java.basico;
 
+import com.example.kafka_java.basico.commonKafka.KafkaDispatcher;
 import com.example.kafka_java.basico.commonKafka.KafkaService;
 import com.example.kafka_java.basico.domain.OrderDomain;
 import lombok.var;
@@ -8,6 +9,9 @@ import org.apache.kafka.clients.consumer.ConsumerRecord;
 import static com.example.kafka_java.Constants.*;
 
 public class FraudDetectorServiceMain {
+
+    private final KafkaDispatcher<OrderDomain> dispatcher
+            = new KafkaDispatcher<>();
 
     public static void main(String[] args) {
         var fraudService = new FraudDetectorServiceMain();
@@ -22,19 +26,30 @@ public class FraudDetectorServiceMain {
 
     private void parse(ConsumerRecord<String, OrderDomain> record) {
         System.out.println("---------------------------------");
-        System.out.println("Processing new order, checking for faud.");
         System.out.println(record.topic());
-        System.out.println("key: " + record.key());
+//        System.out.println("key: " + record.key());
         System.out.println("value: " + record.value());
         System.out.println("offset: " + record.offset());
-        System.out.println("partirion: " + record.partition());
-        System.out.println(record.toString());
+//        System.out.println("partirion: " + record.partition());
         try {
             Thread.sleep(5000);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-        System.out.println("Order processed");
+
+        final OrderDomain order = record.value();
+
+        if(order.isFraud()){
+            System.out.println("Reprovada: " + order);
+            dispatcher.send(ECOMMERCE_ORDER_REJECTED,
+                    order.getUserId(),
+                    order );
+        } else {
+            dispatcher.send(ECOMMERCE_ORDER_APROVED,
+                    order.getUserId(),
+                    order );
+            System.out.println("Aprovada: " + order);
+        }
     }
 
 }

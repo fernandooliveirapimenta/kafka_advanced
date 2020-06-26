@@ -14,4 +14,6 @@ public class Constants {
     public static final String JSON_DESERIALIZER = GsonDeserializer.class.getName();
     public static final String ECOMMERCE_NEW_ORDER = "ECOMMERCE_NEW_ORDER";
     public static final String ECOMMERCE_SEND_EMAIL = "ECOMMERCE_SEND_EMAIL";
+    public static final String ECOMMERCE_ORDER_REJECTED = "ECOMMERCE_ORDER_REJECTED";
+    public static final String ECOMMERCE_ORDER_APROVED = "ECOMMERCE_ORDER_APROVED";
 }

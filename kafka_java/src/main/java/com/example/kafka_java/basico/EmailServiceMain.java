@@ -26,8 +26,8 @@ public class EmailServiceMain {
         System.out.println("key: " + record.key());
         System.out.println("value: " + record.value());
         System.out.println("offset: " + record.offset());
-        System.out.println("partirion: " + record.partition());
-        System.out.println(record.toString());
+//        System.out.println("partirion: " + record.partition());
+//        System.out.println(record.toString());
         try {
             Thread.sleep(1000);
         } catch (InterruptedException e) {

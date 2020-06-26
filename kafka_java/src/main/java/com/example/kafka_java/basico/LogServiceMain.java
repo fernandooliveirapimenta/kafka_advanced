@@ -29,19 +29,16 @@ public class LogServiceMain {
 
     private void parse(ConsumerRecord<String, String> record) {
         System.out.println("---------------------------------");
-        System.out.println("Sending email");
         System.out.println(record.topic());
-        System.out.println("key: " + record.key());
+//        System.out.println("key: " + record.key());
         System.out.println("value: " + record.value());
         System.out.println("offset: " + record.offset());
-        System.out.println("partirion: " + record.partition());
-        System.out.println(record.toString());
+//        System.out.println("partirion: " + record.partition());
         try {
             Thread.sleep(1000);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-        System.out.println("Send email sucess");
     }
 
 }

@@ -16,7 +16,7 @@ public class NewOrderMain {
         try (var orderDispatcher = new KafkaDispatcher<OrderDomain>()) {
             try (var emailDispatcher = new KafkaDispatcher<String>()) {
 
-                for (int i = 0; i < 10; i++) {
+                for (int i = 0; i < 3; i++) {
 
                     var userId = UUID.randomUUID().toString();
                     var orderId = UUID.randomUUID().toString();

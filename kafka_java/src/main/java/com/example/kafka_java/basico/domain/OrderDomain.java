@@ -10,4 +10,10 @@ public class OrderDomain {
     private final String userId;
     private final String orderId;
     private final BigDecimal amount;
+
+
+    public boolean isFraud(){
+        return getAmount()
+                .compareTo(new BigDecimal("4500")) >= 0;
+    }
 }
