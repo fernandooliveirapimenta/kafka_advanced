@@ -1,5 +1,6 @@
 package com.example.kafka_java.basico;
 
+import com.example.kafka_java.basico.commonKafka.KafkaService;
 import lombok.var;
 import org.apache.kafka.clients.consumer.ConsumerRecord;
 import static com.example.kafka_java.Constants.*;
@@ -8,9 +9,10 @@ public class EmailServiceMain {
 
     public static void main(String[] args)  {
        var emailService = new EmailServiceMain();
-       try (var service = new KafkaService(EmailServiceMain.class.getSimpleName(),
+       try (var service = new KafkaService<>
+               (EmailServiceMain.class.getSimpleName(),
                ECOMMERCE_SEND_EMAIL,
-               emailService::parse )) {
+               emailService::parse, String.class )) {
            service.run();
        }
 

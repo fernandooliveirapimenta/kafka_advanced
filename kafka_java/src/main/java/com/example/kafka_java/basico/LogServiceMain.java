@@ -1,53 +1,47 @@
 package com.example.kafka_java.basico;
 
+import com.example.kafka_java.basico.commonKafka.KafkaService;
 import lombok.var;
-import org.apache.kafka.clients.consumer.KafkaConsumer;
+import org.apache.kafka.clients.consumer.ConsumerConfig;
+import org.apache.kafka.clients.consumer.ConsumerRecord;
+import org.apache.kafka.common.serialization.StringDeserializer;
 
-import java.time.Duration;
-import java.util.Properties;
+import java.util.HashMap;
 import java.util.regex.Pattern;
-
-import static com.example.kafka_java.Constants.*;
-import static java.util.Collections.singletonList;
-import static org.apache.kafka.clients.consumer.ConsumerConfig.*;
 
 public class LogServiceMain {
 
-    public static void main(String[] args) throws InterruptedException {
-        var consumer = new KafkaConsumer<>(props());
+    public static void main(String[] args)  {
+        var logService = new LogServiceMain();
 
-        consumer.subscribe(Pattern.compile("ECOMMERCE.*"));
+       var conf = new HashMap<String, String>();
+       conf.put(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class.getName());
 
-        while (true) {
-
-            var records = consumer.poll(Duration.ofMillis(100));
-
-            if(!records.isEmpty()) {
-                System.out.println("Encontrei " + records.count() + " registros");
-
-                for(var record: records){
-                    System.out.println("---------------------------------");
-                    System.out.println("Sending email");
-                    System.out.println(record.topic());
-                    System.out.println("key: " + record.key());
-                    System.out.println("value: " + record.value());
-                    System.out.println("offset: " + record.offset());
-                    System.out.println("partirion: " + record.partition());
-                    System.out.println(record.toString());
-                    Thread.sleep(1000);
-                    System.out.println("Send email sucess");
-                }
-            }
-
+        try (var service = new KafkaService<String>(
+                LogServiceMain.class.getSimpleName(),
+                Pattern.compile("ECOMMERCE.*"),
+             logService::parse,
+                String.class,
+                conf )) {
+            service.run();
         }
     }
 
-    private static Properties props() {
-        var props = new Properties();
-        props.setProperty(BOOTSTRAP_SERVERS_CONFIG, BOOTSTRAP_SERVER);
-        props.setProperty(KEY_DESERIALIZER_CLASS_CONFIG, STRING_DESERIALIZER);
-        props.setProperty(VALUE_DESERIALIZER_CLASS_CONFIG, STRING_DESERIALIZER);
-        props.setProperty(GROUP_ID_CONFIG, LogServiceMain.class.getSimpleName());
-        return props;
+    private void parse(ConsumerRecord<String, String> record) {
+        System.out.println("---------------------------------");
+        System.out.println("Sending email");
+        System.out.println(record.topic());
+        System.out.println("key: " + record.key());
+        System.out.println("value: " + record.value());
+        System.out.println("offset: " + record.offset());
+        System.out.println("partirion: " + record.partition());
+        System.out.println(record.toString());
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        System.out.println("Send email sucess");
     }
+
 }

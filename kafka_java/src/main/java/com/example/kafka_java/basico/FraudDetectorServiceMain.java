@@ -1,5 +1,7 @@
 package com.example.kafka_java.basico;
 
+import com.example.kafka_java.basico.commonKafka.KafkaService;
+import com.example.kafka_java.basico.domain.OrderDomain;
 import lombok.var;
 import org.apache.kafka.clients.consumer.ConsumerRecord;
 
@@ -9,14 +11,16 @@ public class FraudDetectorServiceMain {
 
     public static void main(String[] args) {
         var fraudService = new FraudDetectorServiceMain();
-        try (var kafkaService = new KafkaService(FraudDetectorServiceMain.class.getSimpleName(),
+        try (var kafkaService = new KafkaService<>
+                (FraudDetectorServiceMain.class.getSimpleName(),
                 ECOMMERCE_NEW_ORDER,
-                fraudService::parse)) {
+                fraudService::parse,
+                        OrderDomain.class)) {
             kafkaService.run();
         }
     }
 
-    private void parse(ConsumerRecord<String, String> record) {
+    private void parse(ConsumerRecord<String, OrderDomain> record) {
         System.out.println("---------------------------------");
         System.out.println("Processing new order, checking for faud.");
         System.out.println(record.topic());
