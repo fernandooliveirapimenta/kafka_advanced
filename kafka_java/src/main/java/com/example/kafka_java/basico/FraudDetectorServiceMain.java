@@ -8,13 +8,12 @@ import static com.example.kafka_java.Constants.*;
 public class FraudDetectorServiceMain {
 
     public static void main(String[] args) {
-
         var fraudService = new FraudDetectorServiceMain();
-        var kafkaService = new KafkaService(FraudDetectorServiceMain.class.getSimpleName(),
+        try (var kafkaService = new KafkaService(FraudDetectorServiceMain.class.getSimpleName(),
                 ECOMMERCE_NEW_ORDER,
-                fraudService::parse);
-        kafkaService.run();
-
+                fraudService::parse)) {
+            kafkaService.run();
+        }
     }
 
     private void parse(ConsumerRecord<String, String> record) {

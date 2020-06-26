@@ -3,6 +3,7 @@ package com.example.kafka_java.basico;
 import lombok.var;
 import org.apache.kafka.clients.consumer.KafkaConsumer;
 
+import java.io.Closeable;
 import java.time.Duration;
 import java.util.Properties;
 import java.util.UUID;
@@ -12,7 +13,7 @@ import static java.util.Collections.singletonList;
 import static org.apache.kafka.clients.consumer.ConsumerConfig.*;
 import static org.apache.kafka.clients.consumer.ConsumerConfig.GROUP_ID_CONFIG;
 
-class KafkaService {
+class KafkaService implements Closeable {
 
     private final ConsumerFunction parse;
     private final KafkaConsumer<String, String> consumer;
@@ -49,5 +50,10 @@ class KafkaService {
         props.setProperty(CLIENT_ID_CONFIG, UUID.randomUUID().toString());
         props.setProperty(MAX_POLL_RECORDS_CONFIG, "1");
         return props;
+    }
+
+    @Override
+    public void close() {
+        consumer.close();
     }
 }

@@ -8,12 +8,12 @@ public class EmailServiceMain {
 
     public static void main(String[] args)  {
        var emailService = new EmailServiceMain();
-       var service = new KafkaService(EmailServiceMain.class.getSimpleName(),
+       try (var service = new KafkaService(EmailServiceMain.class.getSimpleName(),
                ECOMMERCE_SEND_EMAIL,
-               emailService::parse
-       );
+               emailService::parse )) {
+           service.run();
+       }
 
-       service.run();
     }
 
     private void parse(ConsumerRecord<String, String> record){
