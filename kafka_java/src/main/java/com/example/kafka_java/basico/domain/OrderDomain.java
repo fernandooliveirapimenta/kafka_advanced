@@ -10,6 +10,7 @@ public class OrderDomain {
     private final String userId;
     private final String orderId;
     private final BigDecimal amount;
+    private final String email;
 
 
     public boolean isFraud(){

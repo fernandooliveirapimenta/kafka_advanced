@@ -21,15 +21,16 @@ public class NewOrderMain {
                     var userId = UUID.randomUUID().toString();
                     var orderId = UUID.randomUUID().toString();
                     var amount = new BigDecimal(Math.random() * 5000 +  1);
-                    var order = new OrderDomain(userId, orderId, amount);
+                    var email = "fosilva@bbmapfre.com.br";
+                    var order = new OrderDomain(userId, orderId, amount,email);
 
 
                     var value = "12345,3333,737737373737";
                     var key = UUID.randomUUID().toString() + value;
                     orderDispatcher.send(ECOMMERCE_NEW_ORDER, key, order);
 
-                    var email = "Welcome Thank estamos processando";
-                    emailDispatcher.send(ECOMMERCE_SEND_EMAIL, key, email);
+                    var email2 = "Welcome Thank estamos processando";
+                    emailDispatcher.send(ECOMMERCE_SEND_EMAIL, key, email2);
 
                 }
             }
