@@ -42,11 +42,11 @@ public class FraudDetectorServiceMain {
         if(order.isFraud()){
             System.out.println("Reprovada: " + order);
             dispatcher.send(ECOMMERCE_ORDER_REJECTED,
-                    order.getUserId(),
+                    order.getEmail(),
                     order );
         } else {
             dispatcher.send(ECOMMERCE_ORDER_APROVED,
-                    order.getUserId(),
+                    order.getEmail(),
                     order );
             System.out.println("Aprovada: " + order);
         }

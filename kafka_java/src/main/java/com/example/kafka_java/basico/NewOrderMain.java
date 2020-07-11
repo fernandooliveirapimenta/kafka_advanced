@@ -18,16 +18,17 @@ public class NewOrderMain {
 
                 for (int i = 0; i < 3; i++) {
 
-                    var userId = UUID.randomUUID().toString();
+//                    var userId = UUID.randomUUID().toString();
                     var orderId = UUID.randomUUID().toString();
                     var amount = new BigDecimal(Math.random() * 5000 +  1);
-                    var email = "fosilva@bbmapfre.com.br";
-                    var order = new OrderDomain(userId, orderId, amount,email);
+                    var email = Math.random() + "fosilva@bbmapfre.com.br";
+//                    var email = "fosilva@bbmapfre.com.br";
+                    var order = new OrderDomain(orderId, amount,email);
 
 
                     var value = "12345,3333,737737373737";
                     var key = UUID.randomUUID().toString() + value;
-                    orderDispatcher.send(ECOMMERCE_NEW_ORDER, key, order);
+                    orderDispatcher.send(ECOMMERCE_NEW_ORDER, email, order);
 
                     var email2 = "Welcome Thank estamos processando";
                     emailDispatcher.send(ECOMMERCE_SEND_EMAIL, key, email2);
