@@ -28,3 +28,15 @@ Or, if you don't have GraalVM installed, you can run the native executable build
 You can then execute your native executable with: `./target/quarkus-kafka-1.0.0-SNAPSHOT-runner`
 
 If you want to learn more about building native executables, please consult https://quarkus.io/guides/building-native-image.
+
+mp.messaging.outgoing.ECOMMERCE_NEW_ORDER.connector=smallrye-kafka
+mp.messaging.incoming.ECOMMERCE_NEW_ORDER.key.serializer=org.apache.kafka.common.serialization.StringSerializer
+mp.messaging.incoming.ECOMMERCE_NEW_ORDER.key.deserializer=org.apache.kafka.common.serialization.StringDeserializer
+mp.messaging.outgoing.ECOMMERCE_NEW_ORDER.value.deserializer=io.quarkus.kafka.client.serialization.JsonbDeserializer
+mp.messaging.outgoing.ECOMMERCE_NEW_ORDER.value.serializer=io.quarkus.kafka.client.serialization.JsonbSerializer
+
+mp.messaging.outgoing.ECOMMERCE_SEND_EMAIL.connector=smallrye-kafka
+mp.messaging.outgoing.ECOMMERCE_SEND_EMAIL.value.serializer=org.apache.kafka.common.serialization.StringSerializer
+mp.messaging.outgoing.ECOMMERCE_SEND_EMAIL.value.deserializer=org.apache.kafka.common.serialization.StringDeserializer
+mp.messaging.incoming.ECOMMERCE_SEND_EMAIL.key.serializer=org.apache.kafka.common.serialization.StringSerializer
+mp.messaging.incoming.ECOMMERCE_SEND_EMAIL.key.deserializer=org.apache.kafka.common.serialization.StringDeserializer

@@ -58,6 +58,14 @@
       <version>1.18.10</version>
       <optional>true</optional>
     </dependency>
+    <dependency>
+      <groupId>io.quarkus</groupId>
+      <artifactId>quarkus-jsonb</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>io.quarkus</groupId>
+      <artifactId>quarkus-kafka-client</artifactId>
+    </dependency>
   </dependencies>
   <build>
     <plugins>

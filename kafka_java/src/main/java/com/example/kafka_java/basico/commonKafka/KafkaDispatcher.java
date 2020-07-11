@@ -3,6 +3,7 @@ package com.example.kafka_java.basico.commonKafka;
 import lombok.var;
 import org.apache.kafka.clients.producer.Callback;
 import org.apache.kafka.clients.producer.KafkaProducer;
+import org.apache.kafka.clients.producer.ProducerConfig;
 import org.apache.kafka.clients.producer.ProducerRecord;
 
 import java.io.Closeable;
@@ -27,6 +28,7 @@ public class KafkaDispatcher<T> implements Closeable {
         props.setProperty(BOOTSTRAP_SERVERS_CONFIG, BOOTSTRAP_SERVER);
         props.setProperty(KEY_SERIALIZER_CLASS_CONFIG, STRING_SERIALIZER);
         props.setProperty(VALUE_SERIALIZER_CLASS_CONFIG, JSON_SERIALIZER);
+        props.setProperty(ACKS_CONFIG, "all" );
         return props;
     }
 

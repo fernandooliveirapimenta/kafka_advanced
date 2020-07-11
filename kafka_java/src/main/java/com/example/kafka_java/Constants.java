@@ -7,7 +7,7 @@ import org.apache.kafka.common.serialization.StringSerializer;
 
 public class Constants {
 
-    public static final String BOOTSTRAP_SERVER = "localhost:9092";
+    public static final String BOOTSTRAP_SERVER = "127.0.0.1:9092";
     public static final String STRING_SERIALIZER = StringSerializer.class.getName();
     public static final String STRING_DESERIALIZER = StringDeserializer.class.getName();
     public static final String JSON_SERIALIZER = GsonSerializer.class.getName();

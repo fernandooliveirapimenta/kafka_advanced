@@ -30,7 +30,7 @@ public class LogServiceMain {
     private void parse(ConsumerRecord<String, String> record) {
         System.out.println("---------------------------------");
         System.out.println(record.topic());
-//        System.out.println("key: " + record.key());
+        System.out.println("key: " + record.key());
         System.out.println("value: " + record.value());
         System.out.println("offset: " + record.offset());
 //        System.out.println("partirion: " + record.partition());
