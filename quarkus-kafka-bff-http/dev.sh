@@ -1,3 +1,3 @@
 #!/bin/bash
 
-./mvnw -s settings.xml quarkus:dev
+./mvnw -s settings.xml package quarkus:dev
